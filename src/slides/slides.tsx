@@ -26,15 +26,9 @@ const S01_Capa: ComponentType<SlideProps> = () => (
         UFC · Projeto e Análise de Algoritmos · 2026.1
       </div>
       <div>
-        <div className="slide-kicker mb-6" style={{ color: "var(--digit-low)" }}>
-          Trabalho Final — Parte 4
-        </div>
         <h1 className="slide-title-lg">
-          Multiplicação de <span className="digit-high">Inteiros</span>:
+          Multiplicação por <span className="digit-low">Extenso</span> × <span className="term-z1">Karatsuba</span>:
         </h1>
-        <h2 className="slide-title-lg mt-2">
-          <span className="digit-low">Extenso</span> × <span className="term-z1">Karatsuba</span>
-        </h2>
       </div>
       <div className="flex items-end justify-between slide-body">
         <div className="space-y-1">
@@ -64,11 +58,11 @@ const S03_Problema: ComponentType<SlideProps> = (p) => (
 
     <div className="flex items-center justify-center gap-12 mt-8">
       <div className="mono text-[140px] font-semibold leading-none">
-        <span className="digit-high">12</span><span className="digit-low">34</span>
+        <span className="digit-high">56</span><span className="digit-low">78</span>
       </div>
       <div className="text-[140px] font-light opacity-50">×</div>
       <div className="mono text-[140px] font-semibold leading-none">
-        <span className="digit-high">56</span><span className="digit-low">78</span>
+        <span className="digit-high">12</span><span className="digit-low">34</span>
       </div>
       <div className="text-[140px] font-light opacity-50">=</div>
       <div className="mono text-[140px] font-semibold leading-none term-z1">?</div>
@@ -77,7 +71,7 @@ const S03_Problema: ComponentType<SlideProps> = (p) => (
 );
 
 const S03_Posicional10: ComponentType<SlideProps> = (p) => (
-  <SlideShell kicker="1 · O problema" page={p.page} total={p.total}>
+  <SlideShell kicker="3 · Karatsuba · Representação" page={p.page} total={p.total}>
     <h2 className="slide-title mb-4">Representação posicional</h2>
     <p className="slide-body max-w-[1300px] opacity-80 mb-10">
       Cada número é uma sequência de dígitos em uma base <D>b</D>. Usaremos base 10.
@@ -85,7 +79,7 @@ const S03_Posicional10: ComponentType<SlideProps> = (p) => (
 
     <div className="grid grid-cols-[1fr_auto] gap-16 items-center">
       <div>
-        <div className="slide-kicker mb-3">Base 10 — número 305</div>
+        <div className="slide-kicker mb-3">Base 10 — número 1234</div>
         <table className="mono text-[28px] w-full border-collapse">
           <thead>
             <tr className="border-b-2 border-foreground/30 text-left">
@@ -97,9 +91,10 @@ const S03_Posicional10: ComponentType<SlideProps> = (p) => (
           </thead>
           <tbody>
             {[
-              [0, 5, 1, 5],
-              [1, 0, 10, 0],
-              [2, 3, 100, 300],
+              [0, 4, 1, 4],
+              [1, 3, 10, 30],
+              [2, 2, 100, 200],
+              [3, 1, 1000, 1000],
             ].map(([i, d, w, c]) => (
               <tr key={i} className="border-b border-border">
                 <td className="py-3">{i}</td>
@@ -110,15 +105,15 @@ const S03_Posicional10: ComponentType<SlideProps> = (p) => (
             ))}
             <tr>
               <td colSpan={3} className="pt-4 text-right">soma=</td>
-              <td className="pt-4 term-z1 font-bold">305</td>
+              <td className="pt-4 term-z1 font-bold">1234</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div className="text-[44px] leading-tight max-w-[600px]" style={{ fontFamily: "var(--font-display)" }}>
-        <D part="plain">305</D>
+        <D part="plain">1234</D>
         <div className="slide-body opacity-70 mt-4">
-          = <D part="high">3</D>·10² + <D>0</D>·10¹ + <D part="low">5</D>·10⁰
+          = <D part="high">1</D>·10³ + <D part="high">2</D>·10² + <D part="low">3</D>·10¹ + <D part="low">4</D>·10⁰
         </div>
       </div>
     </div>
@@ -176,20 +171,20 @@ const S06_ExtensoIdeia: ComponentType<SlideProps> = (p) => (
     <h2 className="slide-title mb-10">Como aprendemos na escola</h2>
     <div className="grid grid-cols-[auto_1fr] gap-20 items-start">
       <div className="mono text-[56px] leading-[1.25] tabular-nums">
-        <div className="text-right">1 2 3 <span className="digit-high">4</span></div>
-        <div className="text-right">× 5 6 7 <span className="digit-low">8</span></div>
+        <div className="text-right">5 6 7 <span className="digit-high">8</span></div>
+        <div className="text-right">× 1 2 3 <span className="digit-low">4</span></div>
         <div className="border-t-2 border-foreground my-3 w-full" />
         <div className="text-right opacity-90">
-          <span className="opacity-60">  </span>9 8 7 2  <span className="slide-caption opacity-60">← 1234 × 8</span>
+          <span className="opacity-60">  </span>2 2 7 1 2  <span className="slide-caption opacity-60">← 5678 × 4</span>
         </div>
         <div className="text-right opacity-90">
-          8 6 3 8 ·   <span className="slide-caption opacity-60">← 1234 × 7</span>
+          1 7 0 3 4 ·   <span className="slide-caption opacity-60">← 5678 × 3</span>
         </div>
         <div className="text-right opacity-90">
-          7 4 0 4 · · <span className="slide-caption opacity-60">← 1234 × 6</span>
+          1 1 3 5 6 · · <span className="slide-caption opacity-60">← 5678 × 2</span>
         </div>
         <div className="text-right opacity-90">
-          6 1 7 0 · · · <span className="slide-caption opacity-60">← 1234 × 5</span>
+          5 6 7 8 · · · <span className="slide-caption opacity-60">← 5678 × 1</span>
         </div>
         <div className="border-t-2 border-foreground my-3" />
         <div className="text-left term-z1 font-bold">7 0 0 6 6 5 2</div>
@@ -232,11 +227,11 @@ const S07_ExtensoPseudo: ComponentType<SlideProps> = (p) => (
 const S08_ExtensoExemplo: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="2 · Extenso · exemplo" page={p.page} total={p.total}>
     <h2 className="slide-title mb-4">
-      <span className="mono"><span className="digit-high">12</span><span className="digit-low">34</span></span>
-      <span className="opacity-50"> × </span>
       <span className="mono"><span className="digit-high">56</span><span className="digit-low">78</span></span>
+      <span className="opacity-50"> × </span>
+      <span className="mono"><span className="digit-high">12</span><span className="digit-low">34</span></span>
     </h2>
-    <p className="slide-caption mb-8">
+    <p className="slide-caption mb-8 mt-20">
       x = [4, 3, 2, 1] (dígito menos significativo primeiro), y = [8, 7, 6, 5], b = 10. Quatro iterações.
     </p>
 
@@ -307,8 +302,8 @@ const S08_ExtensoExemplo: ComponentType<SlideProps> = (p) => (
         </div>
       ))}
     </div>
-    <p className="slide-body-lg mt-8 text-center">
-      Lendo do dígito mais significativo: <D part="z1">7 006 652</D>
+    <p className="slide-body mt-8 text-right">
+      Lendo do dígito mais significativo para o menos: <D part="z1">7 006 652</D>
     </p>
   </SlideShell>
 );
@@ -372,11 +367,10 @@ const S10_KaratsubaSecao: ComponentType<SlideProps> = (p) => (
     <div className="flex h-full flex-col justify-center">
       <div className="slide-kicker mb-6" style={{ color: "var(--accent-z)" }}>3 · Algoritmo de Karatsuba</div>
       <h2 className="slide-title-lg">
-        E se <span className="digit-low">4</span> multiplicações
-        <br />virassem <span className="term-z1">3</span>?
+        Anatoly Karatsuba, 1960
       </h2>
       <p className="slide-subtitle mt-10 opacity-80 max-w-[1400px]">
-        Anatoly Karatsuba, 1960 — o primeiro algoritmo sub-quadrático para multiplicação.
+        O primeiro algoritmo sub-quadrático para multiplicação.
       </p>
     </div>
   </SlideShell>
@@ -386,10 +380,10 @@ const S11_KaratsubaIdeia: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="3 · Karatsuba · ideia" page={p.page} total={p.total}>
     <h2 className="slide-title mb-4">Divida cada número ao meio</h2>
     <p className="slide-body opacity-80 max-w-[1500px] mb-10">
-      Com <D>m = ⌈n/2⌉</D>, cada número vira parte alta · b<sup>m</sup> + parte baixa.
+      Com <D>m = ⌈n/2⌉</D>, cada número vira <span className="digit-high font-bold">parte alta</span> · b<sup>m</sup> + <span className="digit-low font-bold">parte baixa</span>.
     </p>
 
-    <div className="flex justify-center gap-20 my-10">
+    <div className="flex justify-center gap-20 my-40">
       <div className="text-center">
         <div className="slide-kicker mb-3">x = 1234</div>
         <div className="mono text-[120px] leading-none font-semibold">
@@ -410,17 +404,14 @@ const S11_KaratsubaIdeia: ComponentType<SlideProps> = (p) => (
       </div>
     </div>
 
-    <div className="flex justify-center mt-12">
-      <Legend />
-    </div>
   </SlideShell>
 );
 
 const S12_Ingenuo: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="3 · Karatsuba · ingênuo" page={p.page} total={p.total}>
-    <h2 className="slide-title mb-10">A expansão ingênua: 4 multiplicações</h2>
+    <h2 className="slide-title mb-10">A expansão leva a 4 multiplicações</h2>
 
-    <div className="text-[44px] leading-[1.6] text-center mt-10" style={{ fontFamily: "var(--font-display)" }}>
+    <div className="text-[44px] leading-[1.6] text-center mt-50" style={{ fontFamily: "var(--font-display)" }}>
       x · y = (<D part="high">x₁</D>·b<sup>m</sup> + <D part="low">x₀</D>) · (<D part="high">y₁</D>·b<sup>m</sup> + <D part="low">y₀</D>)
     </div>
 
@@ -430,24 +421,18 @@ const S12_Ingenuo: ComponentType<SlideProps> = (p) => (
       &nbsp;+&nbsp; <D part="low">x₀y₀</D>
     </div>
 
-    <div className="mt-16 flex justify-center gap-6">
-      {["x₁·y₁", "x₁·y₀", "x₀·y₁", "x₀·y₀"].map((t) => (
-        <div key={t} className="chip text-[28px]" style={{ borderColor: "var(--accent-mid)" }}>
-          <span className="mono">{t}</span>
-        </div>
-      ))}
-    </div>
-    <p className="slide-body-lg text-center mt-8 opacity-80">
-      Quatro multiplicações de tamanho n/2 → recorrência <D>T(n) = 4 T(n/2) + Θ(n)</D> = Θ(n²). Sem ganho.
+    <p className="slide-body-lg text-center mt-50 opacity-80">
+      Quatro multiplicações de tamanho n/2
+      <div><D>T(n) = 4 T(n/2) + Θ(n)</D></div>
     </p>
   </SlideShell>
 );
 
 const S13_Truque: ComponentType<SlideProps> = (p) => (
-  <SlideShell kicker="3 · Karatsuba · o truque" page={p.page} total={p.total}>
+  <SlideShell kicker="3 · Karatsuba · o truque de Gauss" page={p.page} total={p.total}>
     <h2 className="slide-title mb-10">Defina três produtos:</h2>
 
-    <div className="grid grid-cols-3 gap-8 text-[36px] leading-tight" style={{ fontFamily: "var(--font-display)" }}>
+    <div className="grid grid-cols-3 gap-8 text-[36px] mt-44 leading-tight" style={{ fontFamily: "var(--font-display)" }}>
       <Card accent="var(--digit-high)">
         <div className="slide-kicker mb-3" style={{ color: "var(--digit-high)" }}>z₂</div>
         <div><D part="z2">z₂</D> = <D part="high">x₁</D> · <D part="high">y₁</D></div>
@@ -465,14 +450,11 @@ const S13_Truque: ComponentType<SlideProps> = (p) => (
       </Card>
     </div>
 
-    <div className="text-[40px] text-center mt-14" style={{ fontFamily: "var(--font-display)" }}>
+    <div className="text-[40px] text-center mt-24" style={{ fontFamily: "var(--font-display)" }}>
       p = <D part="z2">z₂</D>·b<sup>2m</sup>
       &nbsp;+&nbsp; (<D part="z1">z₁</D> − <D part="z2">z₂</D> − <D part="z0">z₀</D>)·b<sup>m</sup>
       &nbsp;+&nbsp; <D part="z0">z₀</D>
     </div>
-    <p className="slide-body-lg text-center mt-8">
-      Apenas <span className="term-z1 font-bold">3</span> multiplicações recursivas — o resto é soma e deslocamento.
-    </p>
   </SlideShell>
 );
 
@@ -480,7 +462,7 @@ const S14_PorQueFunciona: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="3 · Karatsuba · corretude" page={p.page} total={p.total}>
     <h2 className="slide-title mb-8">Por que <D part="z1">z₁</D> − <D part="z2">z₂</D> − <D part="z0">z₀</D> dá o termo do meio?</h2>
 
-    <div className="text-[34px] leading-[1.7] mono space-y-3">
+    <div className="text-[34px] leading-[1.7] mono space-y-3 mt-44 ml-134">
       <div><D part="z1">z₁</D> = (<D part="high">x₁</D> + <D part="low">x₀</D>) · (<D part="high">y₁</D> + <D part="low">y₀</D>)</div>
       <div className="pl-12">
         = <D part="high">x₁·y₁</D> + <D part="mid">x₁·y₀</D> + <D part="mid">x₀·y₁</D> + <D part="low">x₀·y₀</D>
@@ -489,17 +471,12 @@ const S14_PorQueFunciona: ComponentType<SlideProps> = (p) => (
         = <D part="z2">z₂</D> &nbsp;+&nbsp; (<D part="mid">x₁y₀ + x₀y₁</D>) &nbsp;+&nbsp; <D part="z0">z₀</D>
       </div>
       <div className="h-2" />
-      <div className="text-[40px]">
+      <div className="text-[40px] mt-24">
         <D part="z1">z₁</D> − <D part="z2">z₂</D> − <D part="z0">z₀</D>
         &nbsp;=&nbsp;
         <D part="mid">x₁·y₀ + x₀·y₁</D>
       </div>
     </div>
-
-    <p className="slide-body mt-12 max-w-[1500px] opacity-80">
-      Identidade algébrica exata. A recursão é finita porque o caso base
-      (<D>n ≤ 3</D>) chama a multiplicação por extenso, encerrando a árvore.
-    </p>
   </SlideShell>
 );
 
@@ -580,7 +557,7 @@ const S17_KaratsubaComplexidade: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="3 · Karatsuba · complexidade" page={p.page} total={p.total}>
     <h2 className="slide-title mb-10">Recorrência e Teorema Mestre</h2>
 
-    <div className="grid grid-cols-[1fr_auto] gap-16 items-center">
+    <div className="grid grid-cols-[1fr_auto] gap-16 items-center mt-40">
       <div className="space-y-10">
         <div className="text-[56px] mono" style={{ fontFamily: "var(--font-display)" }}>
           T(n) = <span className="term-z1 font-bold">3</span> · T(n/2) + Θ(n)
@@ -659,7 +636,7 @@ const S18_Comparacao: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="4 · Comparação teórica" page={p.page} total={p.total}>
     <h2 className="slide-title mb-10">Lado a lado</h2>
 
-    <div className="grid grid-cols-[1fr_auto_1fr] gap-8 items-stretch">
+    <div className="grid grid-cols-[1fr_auto_1fr] gap-8 items-stretch mt-40">
       <Card accent="var(--digit-low)">
         <div className="slide-kicker mb-2" style={{ color: "var(--digit-low)" }}>Extenso</div>
         <ul className="slide-body space-y-3 mt-4">
@@ -676,7 +653,7 @@ const S18_Comparacao: ComponentType<SlideProps> = (p) => (
         <ul className="slide-body space-y-3 mt-4">
           <li>Tempo: <span className="mono font-bold">Θ(n<sup>1,585</sup>)</span></li>
           <li>Recursivo, dividir e conquistar</li>
-          <li>Base para Toom-Cook, Schönhage–Strassen…</li>
+          <li>Base para Schönhage–Strasse, Toom-Cook</li>
         </ul>
       </Card>
     </div>
@@ -716,7 +693,7 @@ const S19_GraficoTeorico: ComponentType<SlideProps> = (p) => {
 const S20_Metodologia: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="5 · Avaliação empírica" page={p.page} total={p.total}>
     <h2 className="slide-title mb-8">Metodologia</h2>
-    <div className="grid grid-cols-2 gap-10">
+    <div className="grid grid-cols-2 gap-10 mt-40">
       <Card>
         <div className="slide-kicker mb-3">Ambiente</div>
         <ul className="slide-body space-y-2 list-disc pl-6">
@@ -892,14 +869,14 @@ const S26_Obrigado: ComponentType<SlideProps> = () => (
 export const slides: Slide[] = [
   { id: "01", title: "Capa", render: S01_Capa },
   { id: "02", title: "O problema", render: S03_Problema },
-  { id: "03", title: "Posicional · base 10", render: S03_Posicional10 },
-  { id: "04", title: "Pré e pós-condições", render: S04_PreCondicoes },
-  { id: "05", title: "Extenso · abertura", render: S05_ExtensoSecao },
-  { id: "06", title: "Extenso · ideia", render: S06_ExtensoIdeia },
-  { id: "07", title: "Extenso · pseudocódigo", render: S07_ExtensoPseudo },
-  { id: "08", title: "Extenso · exemplo", render: S08_ExtensoExemplo },
-  { id: "09", title: "Extenso · complexidade", render: S09_ExtensoComplexidade },
-  { id: "10", title: "Karatsuba · abertura", render: S10_KaratsubaSecao },
+  { id: "03", title: "Pré e pós-condições", render: S04_PreCondicoes },
+  { id: "04", title: "Extenso · abertura", render: S05_ExtensoSecao },
+  { id: "05", title: "Extenso · ideia", render: S06_ExtensoIdeia },
+  { id: "06", title: "Extenso · pseudocódigo", render: S07_ExtensoPseudo },
+  { id: "07", title: "Extenso · exemplo", render: S08_ExtensoExemplo },
+  { id: "08", title: "Extenso · complexidade", render: S09_ExtensoComplexidade },
+  { id: "09", title: "Karatsuba · abertura", render: S10_KaratsubaSecao },
+  { id: "10", title: "Posicional · base 10", render: S03_Posicional10 },
   { id: "11", title: "Karatsuba · divisão", render: S11_KaratsubaIdeia },
   { id: "12", title: "Expansão ingênua", render: S12_Ingenuo },
   { id: "13", title: "O truque · z₀ z₁ z₂", render: S13_Truque },

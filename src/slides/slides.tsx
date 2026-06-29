@@ -35,10 +35,6 @@ const S01_Capa: ComponentType<SlideProps> = () => (
         <h2 className="slide-title-lg mt-2">
           <span className="digit-low">Extenso</span> × <span className="term-z1">Karatsuba</span>
         </h2>
-        <p className="slide-body-lg mt-10 max-w-[1200px] opacity-80">
-          Dois algoritmos para o mesmo problema, complexidades distintas, uma comparação
-          teórica e empírica.
-        </p>
       </div>
       <div className="flex items-end justify-between slide-body">
         <div className="space-y-1">
@@ -47,36 +43,12 @@ const S01_Capa: ComponentType<SlideProps> = () => (
           <div className="font-semibold">Breno G. Carvalho</div>
         </div>
         <div className="text-right slide-caption" style={{ color: "oklch(0.75 0.02 85)" }}>
-          Fortaleza · junho de 2026
         </div>
       </div>
     </div>
   </SlideShell>
 );
 
-const S02_Roteiro: ComponentType<SlideProps> = (p) => (
-  <SlideShell kicker="Roteiro" page={p.page} total={p.total}>
-    <h2 className="slide-title mb-12">O que veremos hoje</h2>
-    <ol className="grid grid-cols-2 gap-x-16 gap-y-8 slide-body-lg max-w-[1600px]">
-      {[
-        ["1", "O problema", "Multiplicar dois naturais em base b"],
-        ["2", "Multiplicação por extenso", "O método tradicional · Θ(n²)"],
-        ["3", "Algoritmo de Karatsuba", "Dividir e conquistar · Θ(n^log₂3)"],
-        ["4", "Comparação teórica", "Recorrências e gráfico"],
-        ["5", "Avaliação empírica", "Medições, ajuste e previsão"],
-        ["6", "Conclusões", "Quando cada um vence"],
-      ].map(([n, t, sub]) => (
-        <li key={n} className="flex gap-6">
-          <span className="mono text-[64px] leading-none font-bold opacity-30">{n}</span>
-          <div>
-            <div className="font-semibold">{t}</div>
-            <div className="slide-body opacity-70">{sub}</div>
-          </div>
-        </li>
-      ))}
-    </ol>
-  </SlideShell>
-);
 
 /* ============================================================
  *  BLOCO 2 — O Problema
@@ -86,7 +58,7 @@ const S03_Problema: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="1 · O problema" page={p.page} total={p.total}>
     <h2 className="slide-title mb-10">Dado dois naturais, calcular o produto.</h2>
     <p className="slide-body-lg max-w-[1300px] opacity-80 mb-16">
-      Operação elementar — e fundamental em computação: criptografia moderna multiplica
+      Operação fundamental em computação: criptografia moderna multiplica
       números com <em>milhares</em> de dígitos.
     </p>
 
@@ -101,16 +73,14 @@ const S03_Problema: ComponentType<SlideProps> = (p) => (
       <div className="text-[140px] font-light opacity-50">=</div>
       <div className="mono text-[140px] font-semibold leading-none term-z1">?</div>
     </div>
-    <p className="slide-caption text-center mt-12">Exemplo que vamos perseguir do começo ao fim da apresentação.</p>
   </SlideShell>
 );
 
-const S04_Posicional10: ComponentType<SlideProps> = (p) => (
+const S03_Posicional10: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="1 · O problema" page={p.page} total={p.total}>
     <h2 className="slide-title mb-4">Representação posicional</h2>
     <p className="slide-body max-w-[1300px] opacity-80 mb-10">
-      Cada número é uma sequência de dígitos em uma base <D>b</D>. Os algoritmos funcionam
-      com <D>b</D> qualquer (≥ 2); usaremos base 10 e base 2.
+      Cada número é uma sequência de dígitos em uma base <D>b</D>. Usaremos base 10.
     </p>
 
     <div className="grid grid-cols-[1fr_auto] gap-16 items-center">
@@ -139,7 +109,7 @@ const S04_Posicional10: ComponentType<SlideProps> = (p) => (
               </tr>
             ))}
             <tr>
-              <td colSpan={3} className="pt-4 text-right">soma</td>
+              <td colSpan={3} className="pt-4 text-right">soma=</td>
               <td className="pt-4 term-z1 font-bold">305</td>
             </tr>
           </tbody>
@@ -155,43 +125,8 @@ const S04_Posicional10: ComponentType<SlideProps> = (p) => (
   </SlideShell>
 );
 
-const S05_Posicional2: ComponentType<SlideProps> = (p) => (
-  <SlideShell kicker="1 · O problema" page={p.page} total={p.total}>
-    <h2 className="slide-title mb-4">O mesmo número, base 2</h2>
-    <p className="slide-body max-w-[1500px] opacity-80 mb-10">
-      <D>305</D> precisa de <D part="high">3</D> dígitos na base 10, mas <D part="low">9</D> dígitos na base 2.
-      O tamanho da entrada <D>n</D> é o número de <em>dígitos</em>, não o valor do número.
-    </p>
 
-    <div className="flex gap-16 items-start">
-      <Card className="flex-1">
-        <div className="slide-kicker mb-4">Base 2</div>
-        <div className="mono text-[28px] leading-[1.6]">
-          <span className="opacity-50">305</span> = <span className="font-bold">100110001</span>₂
-        </div>
-        <div className="slide-body mt-6 opacity-80">
-          = 1·2⁸ + 0·2⁷ + 0·2⁶ + 1·2⁵ + 1·2⁴ + 0·2³ + 0·2² + 0·2¹ + 1·2⁰
-        </div>
-        <div className="slide-body mt-4 term-z1 font-semibold">
-          = 256 + 32 + 16 + 1 = 305
-        </div>
-      </Card>
-      <Card accent="var(--accent-mid)" className="w-[600px]">
-        <div className="slide-kicker mb-3">Tamanho da entrada</div>
-        <div className="mono text-[40px] mb-4">n = ⌊log<sub>b</sub> x⌋ + 1</div>
-        <div className="slide-caption">
-          log<sub>10</sub> 305 ≈ 2,48 → 3 dígitos<br />
-          log<sub>2</sub> 305 ≈ 8,25 → 9 dígitos
-        </div>
-        <div className="slide-caption mt-6 opacity-80">
-          Toda a análise de complexidade está em função de <D>n</D> — vale para qualquer base.
-        </div>
-      </Card>
-    </div>
-  </SlideShell>
-);
-
-const S06_PreCondicoes: ComponentType<SlideProps> = (p) => (
+const S04_PreCondicoes: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="1 · O problema" page={p.page} total={p.total}>
     <h2 className="slide-title mb-12">Pré- e pós-condições</h2>
     <div className="grid grid-cols-2 gap-10">
@@ -214,8 +149,8 @@ const S06_PreCondicoes: ComponentType<SlideProps> = (p) => (
       </Card>
     </div>
     <p className="slide-caption mt-12 max-w-[1500px]">
-      Simplificação: usamos naturais e supomos <D>x</D> e <D>y</D> com o mesmo número de dígitos
-      (o menor pode ser completado com zeros à esquerda — não altera a complexidade).
+      Simplificação: supomos <D>x</D> e <D>y</D> com o mesmo número de dígitos
+      (o menor pode ser completado com zeros à esquerda).
     </p>
   </SlideShell>
 );
@@ -224,23 +159,19 @@ const S06_PreCondicoes: ComponentType<SlideProps> = (p) => (
  *  BLOCO 3 — Multiplicação por Extenso
  * ============================================================ */
 
-const S07_ExtensoSecao: ComponentType<SlideProps> = (p) => (
+const S05_ExtensoSecao: ComponentType<SlideProps> = (p) => (
   <SlideShell noChrome dark page={p.page} total={p.total}>
     <div className="flex h-full flex-col justify-center">
-      <div className="slide-kicker mb-6" style={{ color: "var(--digit-low)" }}>2 · Algoritmo</div>
+      <div className="slide-kicker mb-6" style={{ color: "var(--digit-low)" }}>2 · Multiplicação por extenso</div>
       <h2 className="slide-title-lg">Multiplicação por extenso</h2>
       <p className="slide-subtitle mt-8 opacity-80 max-w-[1400px]">
-        O método tradicional — aquele que aprendemos na escola.
+        O método que aprendemos na escola.
       </p>
-      <div className="mt-16 slide-body opacity-70 max-w-[1300px]">
-        Multiplica cada dígito de <D>y</D> por todos os dígitos de <D>x</D>, soma os produtos
-        parciais deslocados pela ordem de grandeza.
-      </div>
     </div>
   </SlideShell>
 );
 
-const S08_ExtensoIdeia: ComponentType<SlideProps> = (p) => (
+const S06_ExtensoIdeia: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="2 · Extenso · ideia" page={p.page} total={p.total}>
     <h2 className="slide-title mb-10">Como aprendemos na escola</h2>
     <div className="grid grid-cols-[auto_1fr] gap-20 items-start">
@@ -252,28 +183,27 @@ const S08_ExtensoIdeia: ComponentType<SlideProps> = (p) => (
           <span className="opacity-60">  </span>9 8 7 2  <span className="slide-caption opacity-60">← 1234 × 8</span>
         </div>
         <div className="text-right opacity-90">
-          7 4 0 4 ·   <span className="slide-caption opacity-60">← 1234 × 7</span>
+          8 6 3 8 ·   <span className="slide-caption opacity-60">← 1234 × 7</span>
         </div>
         <div className="text-right opacity-90">
-          6 1 7 0 · · <span className="slide-caption opacity-60">← 1234 × 6</span>
+          7 4 0 4 · · <span className="slide-caption opacity-60">← 1234 × 6</span>
         </div>
         <div className="text-right opacity-90">
-          5 1 7 0 · · · <span className="slide-caption opacity-60">← 1234 × 5</span>
+          6 1 7 0 · · · <span className="slide-caption opacity-60">← 1234 × 5</span>
         </div>
         <div className="border-t-2 border-foreground my-3" />
-        <div className="text-right term-z1 font-bold">7 0 0 6 6 5 2</div>
+        <div className="text-left term-z1 font-bold">7 0 0 6 6 5 2</div>
       </div>
       <ul className="slide-body-lg space-y-6 list-disc pl-6">
         <li>Para cada dígito do multiplicador, um <strong>produto parcial</strong>.</li>
         <li>Cada parcial é deslocado pela posição do dígito.</li>
-        <li>O <strong>"vai um"</strong> (transporte) garante que cada casa fique &lt; b.</li>
         <li>No final, soma tudo.</li>
       </ul>
     </div>
   </SlideShell>
 );
 
-const S09_ExtensoPseudo: ComponentType<SlideProps> = (p) => (
+const S07_ExtensoPseudo: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="2 · Extenso · pseudocódigo" page={p.page} total={p.total}>
     <h2 className="slide-title mb-8">Dois laços aninhados</h2>
     <Pseudo>
@@ -299,7 +229,7 @@ const S09_ExtensoPseudo: ComponentType<SlideProps> = (p) => (
   </SlideShell>
 );
 
-const S10_ExtensoExemplo: ComponentType<SlideProps> = (p) => (
+const S08_ExtensoExemplo: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="2 · Extenso · exemplo" page={p.page} total={p.total}>
     <h2 className="slide-title mb-4">
       <span className="mono"><span className="digit-high">12</span><span className="digit-low">34</span></span>
@@ -378,12 +308,12 @@ const S10_ExtensoExemplo: ComponentType<SlideProps> = (p) => (
       ))}
     </div>
     <p className="slide-body-lg mt-8 text-center">
-      Lendo do dígito mais significativo: <D part="z1">7 006 652</D> ✓
+      Lendo do dígito mais significativo: <D part="z1">7 006 652</D>
     </p>
   </SlideShell>
 );
 
-const S11_ExtensoComplexidade: ComponentType<SlideProps> = (p) => (
+const S09_ExtensoComplexidade: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="2 · Extenso · complexidade" page={p.page} total={p.total}>
     <h2 className="slide-title mb-10">Corretude e complexidade</h2>
 
@@ -392,23 +322,23 @@ const S11_ExtensoComplexidade: ComponentType<SlideProps> = (p) => (
         <Card accent="var(--digit-high)">
           <div className="slide-kicker mb-2">Corretude</div>
           <p className="slide-body">
-            Cada dígito de <D>y</D> é multiplicado por cada dígito de <D>x</D> — produz
-            exatamente todos os termos da expansão algébrica do produto. O transporte
-            mantém cada casa do resultado em {`{0,…,b−1}`}.
+            Cada dígito de <D>y</D> é multiplicado por cada dígito de <D>x</D>.
+          </p>
+          <p className="slide-body">
+            O transporte mantém cada casa do resultado em {`{0,…,b−1}`}.
           </p>
         </Card>
 
         <Card accent="var(--accent-mid)">
           <div className="slide-kicker mb-2">Complexidade</div>
           <div className="slide-subtitle mt-3">
-            <span className="opacity-60">T(n) =</span>{" "}
             <span className="term-mid mono">Θ(n²)</span>
-            <span className="opacity-50 mx-6">·</span>
-            <span className="opacity-60">S(n) =</span>{" "}
-            <span className="mono">Θ(n)</span>
+            <span className="opacity-50 mx-6">+</span>
+            <span className="opacity-60">O(n) =</span>{" "}
+            <span className="mono">Θ(n²)</span>
           </div>
           <p className="slide-body mt-4 opacity-80">
-            Dois laços aninhados de tamanho <D>n</D> · operação interna O(1).
+            Dois laços aninhados de tamanho <D>n</D> cada. Criação de vetor com tamanho 2n-1.
           </p>
         </Card>
       </div>
@@ -437,10 +367,10 @@ const S11_ExtensoComplexidade: ComponentType<SlideProps> = (p) => (
  *  BLOCO 4 — Karatsuba
  * ============================================================ */
 
-const S12_KaratsubaSecao: ComponentType<SlideProps> = (p) => (
+const S10_KaratsubaSecao: ComponentType<SlideProps> = (p) => (
   <SlideShell noChrome dark page={p.page} total={p.total}>
     <div className="flex h-full flex-col justify-center">
-      <div className="slide-kicker mb-6" style={{ color: "var(--accent-z)" }}>3 · Algoritmo</div>
+      <div className="slide-kicker mb-6" style={{ color: "var(--accent-z)" }}>3 · Algoritmo de Karatsuba</div>
       <h2 className="slide-title-lg">
         E se <span className="digit-low">4</span> multiplicações
         <br />virassem <span className="term-z1">3</span>?
@@ -452,7 +382,7 @@ const S12_KaratsubaSecao: ComponentType<SlideProps> = (p) => (
   </SlideShell>
 );
 
-const S13_KaratsubaIdeia: ComponentType<SlideProps> = (p) => (
+const S11_KaratsubaIdeia: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="3 · Karatsuba · ideia" page={p.page} total={p.total}>
     <h2 className="slide-title mb-4">Divida cada número ao meio</h2>
     <p className="slide-body opacity-80 max-w-[1500px] mb-10">
@@ -486,7 +416,7 @@ const S13_KaratsubaIdeia: ComponentType<SlideProps> = (p) => (
   </SlideShell>
 );
 
-const S14_Ingenuo: ComponentType<SlideProps> = (p) => (
+const S12_Ingenuo: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="3 · Karatsuba · ingênuo" page={p.page} total={p.total}>
     <h2 className="slide-title mb-10">A expansão ingênua: 4 multiplicações</h2>
 
@@ -513,7 +443,7 @@ const S14_Ingenuo: ComponentType<SlideProps> = (p) => (
   </SlideShell>
 );
 
-const S15_Truque: ComponentType<SlideProps> = (p) => (
+const S13_Truque: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="3 · Karatsuba · o truque" page={p.page} total={p.total}>
     <h2 className="slide-title mb-10">Defina três produtos:</h2>
 
@@ -546,7 +476,7 @@ const S15_Truque: ComponentType<SlideProps> = (p) => (
   </SlideShell>
 );
 
-const S16_PorQueFunciona: ComponentType<SlideProps> = (p) => (
+const S14_PorQueFunciona: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="3 · Karatsuba · corretude" page={p.page} total={p.total}>
     <h2 className="slide-title mb-8">Por que <D part="z1">z₁</D> − <D part="z2">z₂</D> − <D part="z0">z₀</D> dá o termo do meio?</h2>
 
@@ -562,7 +492,7 @@ const S16_PorQueFunciona: ComponentType<SlideProps> = (p) => (
       <div className="text-[40px]">
         <D part="z1">z₁</D> − <D part="z2">z₂</D> − <D part="z0">z₀</D>
         &nbsp;=&nbsp;
-        <D part="mid">x₁·y₀ + x₀·y₁</D>  ✓
+        <D part="mid">x₁·y₀ + x₀·y₁</D>
       </div>
     </div>
 
@@ -573,7 +503,7 @@ const S16_PorQueFunciona: ComponentType<SlideProps> = (p) => (
   </SlideShell>
 );
 
-const S17_KaratsubaPseudo: ComponentType<SlideProps> = (p) => (
+const S15_KaratsubaPseudo: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="3 · Karatsuba · pseudocódigo" page={p.page} total={p.total}>
     <h2 className="slide-title mb-6">Recursivo, com caso base</h2>
     <Pseudo>
@@ -598,7 +528,7 @@ const S17_KaratsubaPseudo: ComponentType<SlideProps> = (p) => (
   </SlideShell>
 );
 
-const S18_KaratsubaExemplo: ComponentType<SlideProps> = (p) => (
+const S16_KaratsubaExemplo: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="3 · Karatsuba · exemplo" page={p.page} total={p.total}>
     <h2 className="slide-title mb-2">
       Mesma entrada: <SplitNumber high="12" low="34" /> × <SplitNumber high="56" low="78" />
@@ -641,12 +571,12 @@ const S18_KaratsubaExemplo: ComponentType<SlideProps> = (p) => (
     <div className="mt-8 text-[34px] mono leading-[1.5]">
       p = <D part="z2">672</D>·10⁴ + <D part="mid">2840</D>·10² + <D part="z0">2652</D>
       <div className="pl-8 mt-2">= 6 720 000 + 284 000 + 2 652</div>
-      <div className="pl-8 mt-2 text-[44px] term-z1 font-bold">= 7 006 652  ✓</div>
+      <div className="pl-8 mt-2 text-[44px] term-z1 font-bold">= 7 006 652</div>
     </div>
   </SlideShell>
 );
 
-const S19_KaratsubaComplexidade: ComponentType<SlideProps> = (p) => (
+const S17_KaratsubaComplexidade: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="3 · Karatsuba · complexidade" page={p.page} total={p.total}>
     <h2 className="slide-title mb-10">Recorrência e Teorema Mestre</h2>
 
@@ -657,8 +587,8 @@ const S19_KaratsubaComplexidade: ComponentType<SlideProps> = (p) => (
         </div>
 
         <div className="slide-body-lg max-w-[1000px] opacity-85">
-          Teorema Mestre — caso 1: a = 3, b = 2, log<sub>b</sub> a = log<sub>2</sub> 3 ≈ 1,585.
-          O custo das folhas domina.
+          <div>Teorema Mestre: a = 3, b = 2</div>
+          <div>Caso 1 (a &gt; b): Θ(n<sup>log<sub>b</sub> a</sup>)</div>
         </div>
 
         <div className="text-[64px] mono">
@@ -670,7 +600,6 @@ const S19_KaratsubaComplexidade: ComponentType<SlideProps> = (p) => (
       <div className="flex flex-col items-center">
         <div className="slide-kicker mb-3">árvore de recursão</div>
         <RecursionTree />
-        <div className="slide-caption mt-3">3 filhos por nó — não 4</div>
       </div>
     </div>
   </SlideShell>
@@ -726,7 +655,7 @@ function RecursionTree() {
  *  BLOCO 5 — Comparação
  * ============================================================ */
 
-const S20_Comparacao: ComponentType<SlideProps> = (p) => (
+const S18_Comparacao: ComponentType<SlideProps> = (p) => (
   <SlideShell kicker="4 · Comparação teórica" page={p.page} total={p.total}>
     <h2 className="slide-title mb-10">Lado a lado</h2>
 
@@ -735,9 +664,7 @@ const S20_Comparacao: ComponentType<SlideProps> = (p) => (
         <div className="slide-kicker mb-2" style={{ color: "var(--digit-low)" }}>Extenso</div>
         <ul className="slide-body space-y-3 mt-4">
           <li>Tempo: <span className="mono font-bold">Θ(n²)</span></li>
-          <li>Espaço: <span className="mono">Θ(n)</span></li>
           <li>Iterativo, sem recursão</li>
-          <li>Constante pequena · ótimo p/ n pequeno</li>
           <li>Não usa pilha</li>
         </ul>
       </Card>
@@ -748,22 +675,15 @@ const S20_Comparacao: ComponentType<SlideProps> = (p) => (
         <div className="slide-kicker mb-2" style={{ color: "var(--accent-z)" }}>Karatsuba</div>
         <ul className="slide-body space-y-3 mt-4">
           <li>Tempo: <span className="mono font-bold">Θ(n<sup>1,585</sup>)</span></li>
-          <li>Espaço: <span className="mono">Θ(n)</span> + pilha O(log n)</li>
           <li>Recursivo, dividir e conquistar</li>
-          <li>Constante maior · vence para n grande</li>
           <li>Base para Toom-Cook, Schönhage–Strassen…</li>
         </ul>
       </Card>
     </div>
-
-    <p className="slide-caption text-center mt-10 max-w-[1500px] mx-auto">
-      Para n pequeno, a constante do Karatsuba mais o custo da recursão fazem o extenso ganhar —
-      por isso o caso base do Karatsuba <em>delega</em> ao extenso.
-    </p>
   </SlideShell>
 );
 
-const S21_GraficoTeorico: ComponentType<SlideProps> = (p) => {
+const S19_GraficoTeorico: ComponentType<SlideProps> = (p) => {
   const data = Array.from({ length: 60 }, (_, i) => {
     const n = (i + 1) * 8;
     return { n, "n²": n * n, "n^log₂3": Math.pow(n, Math.log2(3)) };
@@ -771,7 +691,7 @@ const S21_GraficoTeorico: ComponentType<SlideProps> = (p) => {
   return (
     <SlideShell kicker="4 · Comparação teórica" page={p.page} total={p.total}>
       <h2 className="slide-title mb-2">Crescimento assintótico</h2>
-      <p className="slide-caption mb-6">Eixo x: tamanho da entrada n · eixo y: operações (escala arbitrária).</p>
+      <p className="slide-caption mb-6">Eixo x: tamanho da entrada n · eixo y: operações T(n).</p>
       <div className="h-[680px]">
         <ResponsiveContainer>
           <LineChart data={data} margin={{ top: 20, right: 40, left: 40, bottom: 30 }}>
@@ -793,23 +713,23 @@ const S21_GraficoTeorico: ComponentType<SlideProps> = (p) => {
  *  BLOCO 6 — Empírico (placeholders)
  * ============================================================ */
 
-const S22_Metodologia: ComponentType<SlideProps> = (p) => (
-  <SlideShell kicker="5 · Avaliação empírica" page={p.page} total={p.total} placeholder>
+const S20_Metodologia: ComponentType<SlideProps> = (p) => (
+  <SlideShell kicker="5 · Avaliação empírica" page={p.page} total={p.total}>
     <h2 className="slide-title mb-8">Metodologia</h2>
     <div className="grid grid-cols-2 gap-10">
       <Card>
         <div className="slide-kicker mb-3">Ambiente</div>
         <ul className="slide-body space-y-2 list-disc pl-6">
-          <li>SO: <span className="opacity-50 italic">preencher</span></li>
-          <li>CPU: <span className="opacity-50 italic">preencher (modelo, clock)</span></li>
-          <li>RAM: <span className="opacity-50 italic">preencher</span></li>
-          <li>Linguagem / versão: <span className="opacity-50 italic">preencher</span></li>
+          <li>SO: Ubuntu (WSL2)</li>
+          <li>CPU: Intel i7 13ª Gen.</li>
+          <li>RAM: 24 GB</li>
+          <li>Linguagem: Python</li>
         </ul>
       </Card>
       <Card accent="var(--accent-mid)">
         <div className="slide-kicker mb-3">Procedimento</div>
         <ul className="slide-body space-y-2 list-disc pl-6">
-          <li>Entradas aleatórias com n dígitos uniformes</li>
+          <li>Entradas aleatórias com n dígitos</li>
           <li>Dobrar n a cada iteração até o tempo &gt; 5 min</li>
           <li>Razão dobrando → estimar grau <D>d</D></li>
           <li>Ajustar c em <D>T(n) = c · n<sup>d</sup></D> no maior n</li>
@@ -817,123 +737,92 @@ const S22_Metodologia: ComponentType<SlideProps> = (p) => (
         </ul>
       </Card>
     </div>
-    <p className="slide-body mt-10 mono">
-      diferença_relativa = 100 · |tempo_medido − tempo_previsto| / tempo_previsto  %
-    </p>
   </SlideShell>
 );
 
-const S23_Tabela: ComponentType<SlideProps> = (p) => (
-  <SlideShell kicker="5 · Avaliação empírica" page={p.page} total={p.total} placeholder>
-    <h2 className="slide-title mb-6">Medições</h2>
-    <p className="slide-caption mb-6">Substituir pelos valores reais da Parte 3.</p>
-    <table className="w-full mono text-[24px] border-collapse">
-      <thead>
-        <tr className="border-b-2 border-foreground/30 text-left">
-          <th className="py-3">n (dígitos)</th>
-          <th>tempo extenso (s)</th>
-          <th>razão</th>
-          <th>tempo Karatsuba (s)</th>
-          <th>razão</th>
-          <th>d estimado</th>
-        </tr>
-      </thead>
-      <tbody className="opacity-70 italic">
-        {["10", "20", "40", "80", "160", "320", "640", "…"].map((n) => (
-          <tr key={n} className="border-b border-border">
-            <td className="py-3 not-italic font-semibold opacity-100">{n}</td>
-            <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </SlideShell>
-);
+const S21_Tabela: ComponentType<SlideProps> = (p) => {
+  const isRatio4x = (r: string) => r.startsWith("4.");
+  const isRatio3x = (r: string) => r.startsWith("3.");
 
-const S24_Grafico: ComponentType<SlideProps> = (p) => {
-  // illustrative placeholder data
-  const data = [10, 20, 40, 80, 160, 320, 640].map((n) => ({
-    n,
-    extenso: (n * n) / 1e5,
-    karatsuba: Math.pow(n, Math.log2(3)) / 1e5,
-  }));
   return (
-    <SlideShell kicker="5 · Avaliação empírica" page={p.page} total={p.total} placeholder>
-      <h2 className="slide-title mb-2">Tempo medido × n</h2>
-      <p className="slide-caption mb-6">Gráfico ilustrativo · substituir pelos pontos reais.</p>
-      <div className="h-[680px]">
-        <ResponsiveContainer>
-          <LineChart data={data} margin={{ top: 20, right: 40, left: 40, bottom: 30 }}>
-            <CartesianGrid stroke="var(--border)" strokeDasharray="3 3" />
-            <XAxis dataKey="n" stroke="var(--muted-foreground)" tick={{ fontSize: 16 }} scale="log" domain={["auto", "auto"]} type="number" />
-            <YAxis stroke="var(--muted-foreground)" tick={{ fontSize: 16 }} scale="log" domain={["auto", "auto"]} />
-            <Tooltip contentStyle={{ background: "var(--card)", border: "1px solid var(--border)" }} />
-            <RLegend wrapperStyle={{ fontSize: 18 }} />
-            <Line type="monotone" dataKey="extenso" stroke="var(--digit-low)" strokeWidth={4} dot={{ r: 6 }} />
-            <Line type="monotone" dataKey="karatsuba" stroke="var(--accent-z)" strokeWidth={4} dot={{ r: 6 }} />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
+    <SlideShell kicker="5 · Avaliação empírica" page={p.page} total={p.total}>
+      <h2 className="slide-title mb-4">Medições de tempo (segundos)</h2>
+      <p className="slide-caption mb-4">n = número de dígitos (dobrados). Razão = T(n)/T(n/2).</p>
+      <table className="w-11/12 mx-auto mono text-[18px] border-collapse">
+        <thead>
+          <tr className="border-b-2 border-foreground/30 text-left">
+            <th className="py-2 pl-4">n</th>
+            <th className="text-right">extenso (s)</th>
+            <th className="text-right">razão</th>
+            <th className="text-right">Karatsuba (s)</th>
+            <th className="text-right pr-4">razão</th>
+          </tr>
+        </thead>
+        <tbody>
+          {[
+            ["1", "0.00000119", "—", "0.00000048", "—"],
+            ["2", "0.00000644", "5.40×", "0.00000382", "8.00×"],
+            ["4", "0.00000763", "1.19×", "0.00000286", "0.75×"],
+            ["8", "0.00001287", "1.69×", "0.00001049", "3.67×"],
+            ["16", "0.00003076", "2.39×", "0.00002050", "1.95×"],
+            ["32", "0.00010085", "3.28×", "0.00006342", "3.09×"],
+            ["64", "0.00040722", "4.04×", "0.00017095", "2.70×"],
+            ["128", "0.00159383", "3.91×", "0.00055432", "3.24×"],
+            ["256", "0.00621319", "3.90×", "0.00161052", "2.91×"],
+            ["512", "0.02564263", "4.13×", "0.00507641", "3.15×"],
+            ["1024", "0.10102010", "3.94×", "0.01575994", "3.10×"],
+            ["2048", "0.42370343", "4.19×", "0.04494524", "2.85×"],
+            ["4096", "1.67777109", "3.96×", "0.14097333", "3.14×"],
+            ["8192", "8.86405301", "5.28×", "0.45124936", "3.20×"],
+            ["16384", "27.74505401", "3.13×", "1.36140704", "3.02×"],
+            ["32768", "122.06295824", "4.40×", "3.93089414", "2.89×"],
+            ["65536", "485.12 ou 8 minutos", "3.97×", "13.70233512", "3.49×"],
+          ].map((row, idx) => (
+            <tr key={idx} className="border-b border-border/50">
+              <td className="py-1 pl-4 font-semibold">{row[0]}</td>
+              <td className="text-right text-[17px]">{row[1]}</td>
+              <td className={`text-right py-1 px-2 rounded ${isRatio4x(row[2]) ? 'bg-digit-low/20 font-bold text-digit-low' : 'opacity-60'}`}>{row[2]}</td>
+              <td className="text-right text-[17px]">{row[3]}</td>
+              <td className={`text-right py-1 px-2 rounded pr-4 ${isRatio3x(row[4]) ? 'bg-accent-z/20 font-bold text-accent-z' : 'opacity-60'}`}>{row[4]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </SlideShell>
   );
 };
 
-const S25_Previsao: ComponentType<SlideProps> = (p) => (
-  <SlideShell kicker="5 · Avaliação empírica" page={p.page} total={p.total} placeholder>
-    <h2 className="slide-title mb-8">Previsão × medido</h2>
+const S23_Previsao: ComponentType<SlideProps> = (p) => (
+  <SlideShell kicker="5 · Avaliação empírica" page={p.page} total={p.total}>
+    <h2 className="slide-title mb-8">Previsão × medido (n = 131.072 dígitos)</h2>
 
     <div className="grid grid-cols-2 gap-8">
       <Card accent="var(--digit-low)">
         <div className="slide-kicker" style={{ color: "var(--digit-low)" }}>Extenso</div>
         <div className="slide-body mt-4 space-y-2">
-          <div>d estimado: <span className="mono italic opacity-60">— ≈ 2</span></div>
-          <div>c (no maior n): <span className="mono italic opacity-60">—</span></div>
-          <div>n_próx: <span className="mono italic opacity-60">—</span></div>
-          <div>previsto: <span className="mono italic opacity-60">— s</span></div>
-          <div>medido: <span className="mono italic opacity-60">— s</span></div>
-          <div className="text-[34px] mt-3">dif. relativa: <span className="mono italic opacity-60">— %</span></div>
+          <div>d estimado: <span className="mono font-bold">2.00</span></div>
+          <div>c (no maior n): <span className="mono font-bold">1.12 × 10⁻⁷</span></div>
+          <div>T(n) previsto: <span className="mono font-bold">1.924 s</span></div>
+          <div>T(n) medido: <span className="mono font-bold">1.955 s ou 32 minutos</span></div>
+          <div className="text-[34px] mt-3 term-z1">dif. relativa: <span className="mono font-bold">1.60%</span></div>
         </div>
       </Card>
       <Card accent="var(--accent-z)">
         <div className="slide-kicker" style={{ color: "var(--accent-z)" }}>Karatsuba</div>
         <div className="slide-body mt-4 space-y-2">
-          <div>d estimado: <span className="mono italic opacity-60">— ≈ 1,585</span></div>
-          <div>c (no maior n): <span className="mono italic opacity-60">—</span></div>
-          <div>n_próx: <span className="mono italic opacity-60">—</span></div>
-          <div>previsto: <span className="mono italic opacity-60">— s</span></div>
-          <div>medido: <span className="mono italic opacity-60">— s</span></div>
-          <div className="text-[34px] mt-3">dif. relativa: <span className="mono italic opacity-60">— %</span></div>
+          <div>d estimado: <span className="mono font-bold">1.585</span></div>
+          <div>c (no maior n): <span className="mono font-bold">3.18 × 10⁻⁷</span></div>
+          <div>T(n) previsto: <span className="mono font-bold">41.08 s</span></div>
+          <div>T(n) medido: <span className="mono font-bold">37.57 s</span></div>
+          <div className="text-[34px] mt-3 term-z1">dif. relativa: <span className="mono font-bold">8.54%</span></div>
         </div>
       </Card>
     </div>
 
-    <div className="card-flat mt-10 text-center mono text-[30px]" style={{ padding: 24 }}>
-      T(n) = c · n<sup>d</sup>  →  prever no próximo tamanho  →  diferença relativa = 100 · |medido − previsto| / previsto %
+    <div className="card-flat mt-10 text-center mono text-[28px]" style={{ padding: 24 }}>
+      <div>T(n) = c · n<sup>d</sup></div>
+      <div>diferença relativa = 100 · |medido − previsto| / previsto %</div>
     </div>
-  </SlideShell>
-);
-
-const S26_Discussao: ComponentType<SlideProps> = (p) => (
-  <SlideShell kicker="5 · Avaliação empírica" page={p.page} total={p.total} placeholder>
-    <h2 className="slide-title mb-10">Empírico × teórico</h2>
-    <ul className="slide-body-lg space-y-6 list-disc pl-10 max-w-[1600px]">
-      <li>
-        Grau empírico do extenso: <span className="mono italic opacity-60">d ≈ —</span> — esperado <span className="mono">2</span>.
-        <span className="slide-caption ml-3 opacity-60">(comentar concordância)</span>
-      </li>
-      <li>
-        Grau empírico do Karatsuba: <span className="mono italic opacity-60">d ≈ —</span> — esperado <span className="mono">log₂3 ≈ 1,585</span>.
-      </li>
-      <li>
-        Ponto de cruzamento observado: <span className="italic opacity-60">n ≈ — dígitos</span>.
-      </li>
-      <li>
-        Diferenças relativas baixas indicam que o modelo <span className="mono">c·n<sup>d</sup></span> prevê bem.
-      </li>
-      <li>
-        Limitações: GC, ruído do SO, alocações — discutir.
-      </li>
-    </ul>
   </SlideShell>
 );
 
@@ -941,8 +830,8 @@ const S26_Discussao: ComponentType<SlideProps> = (p) => (
  *  BLOCO 7 — Encerramento
  * ============================================================ */
 
-const S27_Conclusoes: ComponentType<SlideProps> = (p) => (
-  <SlideShell kicker="6 · Conclusões" page={p.page} total={p.total}>
+const S25_Conclusoes: ComponentType<SlideProps> = (p) => (
+  <SlideShell kicker="5 · Conclusões" page={p.page} total={p.total}>
     <h2 className="slide-title mb-12">Conclusões</h2>
     <ol className="space-y-8 slide-body-lg max-w-[1600px]">
       <li className="flex gap-6">
@@ -974,7 +863,7 @@ const S27_Conclusoes: ComponentType<SlideProps> = (p) => (
   </SlideShell>
 );
 
-const S28_Obrigado: ComponentType<SlideProps> = () => (
+const S26_Obrigado: ComponentType<SlideProps> = () => (
   <SlideShell noChrome dark>
     <div className="flex h-full flex-col justify-between">
       <div className="slide-kicker" style={{ color: "oklch(0.75 0.02 85)" }}>Perguntas?</div>
@@ -1002,31 +891,26 @@ const S28_Obrigado: ComponentType<SlideProps> = () => (
 
 export const slides: Slide[] = [
   { id: "01", title: "Capa", render: S01_Capa },
-  { id: "02", title: "Roteiro", render: S02_Roteiro },
-  { id: "03", title: "O problema", render: S03_Problema },
-  { id: "04", title: "Posicional · base 10", render: S04_Posicional10 },
-  { id: "05", title: "Posicional · base 2", render: S05_Posicional2 },
-  { id: "06", title: "Pré e pós-condições", render: S06_PreCondicoes },
-  { id: "07", title: "Extenso · abertura", render: S07_ExtensoSecao },
-  { id: "08", title: "Extenso · ideia", render: S08_ExtensoIdeia },
-  { id: "09", title: "Extenso · pseudocódigo", render: S09_ExtensoPseudo },
-  { id: "10", title: "Extenso · exemplo", render: S10_ExtensoExemplo },
-  { id: "11", title: "Extenso · complexidade", render: S11_ExtensoComplexidade },
-  { id: "12", title: "Karatsuba · abertura", render: S12_KaratsubaSecao },
-  { id: "13", title: "Karatsuba · divisão", render: S13_KaratsubaIdeia },
-  { id: "14", title: "Expansão ingênua", render: S14_Ingenuo },
-  { id: "15", title: "O truque · z₀ z₁ z₂", render: S15_Truque },
-  { id: "16", title: "Por que funciona", render: S16_PorQueFunciona },
-  { id: "17", title: "Karatsuba · pseudocódigo", render: S17_KaratsubaPseudo },
-  { id: "18", title: "Karatsuba · exemplo", render: S18_KaratsubaExemplo },
-  { id: "19", title: "Karatsuba · complexidade", render: S19_KaratsubaComplexidade },
-  { id: "20", title: "Comparação lado a lado", render: S20_Comparacao },
-  { id: "21", title: "Gráfico teórico", render: S21_GraficoTeorico },
-  { id: "22", title: "Empírico · metodologia", render: S22_Metodologia },
-  { id: "23", title: "Empírico · tabela", render: S23_Tabela },
-  { id: "24", title: "Empírico · gráfico", render: S24_Grafico },
-  { id: "25", title: "Empírico · previsão", render: S25_Previsao },
-  { id: "26", title: "Empírico · discussão", render: S26_Discussao },
-  { id: "27", title: "Conclusões", render: S27_Conclusoes },
-  { id: "28", title: "Obrigado", render: S28_Obrigado },
+  { id: "02", title: "O problema", render: S03_Problema },
+  { id: "03", title: "Posicional · base 10", render: S03_Posicional10 },
+  { id: "04", title: "Pré e pós-condições", render: S04_PreCondicoes },
+  { id: "05", title: "Extenso · abertura", render: S05_ExtensoSecao },
+  { id: "06", title: "Extenso · ideia", render: S06_ExtensoIdeia },
+  { id: "07", title: "Extenso · pseudocódigo", render: S07_ExtensoPseudo },
+  { id: "08", title: "Extenso · exemplo", render: S08_ExtensoExemplo },
+  { id: "09", title: "Extenso · complexidade", render: S09_ExtensoComplexidade },
+  { id: "10", title: "Karatsuba · abertura", render: S10_KaratsubaSecao },
+  { id: "11", title: "Karatsuba · divisão", render: S11_KaratsubaIdeia },
+  { id: "12", title: "Expansão ingênua", render: S12_Ingenuo },
+  { id: "13", title: "O truque · z₀ z₁ z₂", render: S13_Truque },
+  { id: "14", title: "Por que funciona", render: S14_PorQueFunciona },
+  { id: "15", title: "Karatsuba · pseudocódigo", render: S15_KaratsubaPseudo },
+  { id: "16", title: "Karatsuba · exemplo", render: S16_KaratsubaExemplo },
+  { id: "17", title: "Karatsuba · complexidade", render: S17_KaratsubaComplexidade },
+  { id: "18", title: "Comparação lado a lado", render: S18_Comparacao },
+  { id: "19", title: "Gráfico teórico", render: S19_GraficoTeorico },
+  { id: "20", title: "Empírico · metodologia", render: S20_Metodologia },
+  { id: "21", title: "Empírico · tabela", render: S21_Tabela },
+  { id: "22", title: "Empírico · previsão", render: S23_Previsao },
+  { id: "23", title: "Obrigado", render: S26_Obrigado },
 ];
